@@ -12,31 +12,32 @@ class TransactionList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 450,
         child: transactions.isEmpty
-            ? Column(
-                children: <Widget>[
-                  Text(
-                    "No Transactions",
-                    style: GoogleFonts.robotoCondensed(
-                      textStyle: TextStyle(
-                        fontSize: 18,
-                        color: Hexcolor('#272736'),
+            ? LayoutBuilder(builder: (ctx, constraints) {
+                return Column(
+                  children: <Widget>[
+                    Text(
+                      "No Transactions",
+                      style: GoogleFonts.robotoCondensed(
+                        textStyle: TextStyle(
+                          fontSize: 18,
+                          color: Hexcolor('#272736'),
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Container(
-                    height: 200,
-                    child: Image.asset(
-                      'assets/images/waiting.png',
-                      fit: BoxFit.cover,
+                    SizedBox(
+                      height: 30,
                     ),
-                  ),
-                ],
-              )
+                    Container(
+                      height: constraints.maxHeight * 0.6,
+                      child: Image.asset(
+                        'assets/images/waiting.png',
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ],
+                );
+              })
             : ListView.builder(
                 itemBuilder: (ctx, index) {
                   return Container(
@@ -57,13 +58,34 @@ class TransactionList extends StatelessWidget {
                           color: Colors.red,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Icon(
-                                Icons.delete,
-                                color: Colors.white,
-                              ),
-                              Icon(Icons.delete, color: Colors.white),
-                            ],
+                            children: MediaQuery.of(context).size.width > 400
+                                ? <Widget>[
+                                    FlatButton.icon(
+                                      onPressed: () {},
+                                      icon: Icon(
+                                        Icons.delete,
+                                        color: Colors.white,
+                                      ),
+                                      label: Text('Delete'),
+                                      textColor: Colors.white,
+                                    ),
+                                    FlatButton.icon(
+                                      onPressed: () {},
+                                      icon: Icon(
+                                        Icons.delete,
+                                        color: Colors.white,
+                                      ),
+                                      label: Text('Delete'),
+                                      textColor: Colors.white,
+                                    )
+                                  ]
+                                : <Widget>[
+                                    Icon(
+                                      Icons.delete,
+                                      color: Colors.white,
+                                    ),
+                                    Icon(Icons.delete, color: Colors.white),
+                                  ],
                           ),
                         ),
                         child: Container(

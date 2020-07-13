@@ -9,56 +9,62 @@ class BarChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(label.runtimeType);
-    return Column(
-      children: <Widget>[
-        SizedBox(
-          height: 10,
-        ),
-        Container(
-          height: 17,
-          child: FittedBox(
-            child: Text(
-              '${amount.toStringAsFixed(0)}',
-              style: TextStyle(
-                fontSize: 12,
+    return LayoutBuilder(builder: (ctx, constraints) {
+      return Column(
+        children: <Widget>[
+          SizedBox(
+            height: constraints.maxHeight * 0.05,
+          ),
+          Container(
+            height: constraints.maxHeight * 0.09,
+            child: FittedBox(
+              child: Text(
+                '${amount.toStringAsFixed(0)}',
+                style: TextStyle(
+                  fontSize: 12,
+                ),
               ),
             ),
           ),
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        Container(
-          height: 100,
-          width: 6,
-          child: Stack(
-            children: <Widget>[
-              Container(
-                decoration: BoxDecoration(
-                  color: Color.fromRGBO(240, 240, 240, 1),
-                  borderRadius: BorderRadius.circular(2),
-                ),
-              ),
-              FractionallySizedBox(
-                heightFactor: totalPercentage,
-                child: Container(
+          SizedBox(
+            height: constraints.maxHeight * 0.08,
+          ),
+          Container(
+            height: constraints.maxHeight * 0.6,
+            width: 6,
+            child: Stack(
+              children: <Widget>[
+                Container(
                   decoration: BoxDecoration(
-                    color: label == "Tu" || label == 'Su' || label == 'Fr'
-                        ? Hexcolor('#4EEAFD')
-                        : Hexcolor('#FC8F84'),
-                    borderRadius: BorderRadius.circular(10),
+                    color: Color.fromRGBO(240, 240, 240, 1),
+                    borderRadius: BorderRadius.circular(2),
                   ),
                 ),
-              )
-            ],
+                FractionallySizedBox(
+                  heightFactor: totalPercentage,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: label == "Tu" || label == 'Su' || label == 'Fr'
+                          ? Hexcolor('#4EEAFD')
+                          : Hexcolor('#FC8F84'),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
-        ),
-        SizedBox(
-          height: 18,
-        ),
-        Text(label),
-      ],
-    );
+          SizedBox(
+            height: constraints.maxHeight * 0.08,
+          ),
+          Container(
+            height: constraints.maxHeight * 0.09,
+            child: FittedBox(
+              child: Text(label),
+            ),
+          ),
+        ],
+      );
+    });
   }
 }
